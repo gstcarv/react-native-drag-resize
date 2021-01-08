@@ -655,6 +655,8 @@ export class DragResizeBlock extends Component {
   renderConnectors = () => {
     const {
       connectors,
+      isDraggable,
+      isResizable
     } = this.props;
 
     const {
@@ -663,6 +665,11 @@ export class DragResizeBlock extends Component {
     } = this.state;
 
     return connectors.map((connectorType) => {
+
+      if((connectorType == "c" && !isDraggable) || 
+         (connectorType != "c" && !isResizable)) 
+          return;
+
       return (
         <Connector
           key={connectorType}
@@ -670,9 +677,16 @@ export class DragResizeBlock extends Component {
           size={CONNECTOR_SIZE}
           x={this.connectorsMap[connectorType].calculateX(w)}
           y={this.connectorsMap[connectorType].calculateY(h)}
+          w={w}
+          h={h}
           onStart={this.connectorsMap[connectorType].onStart}
           onMove={this.connectorsMap[connectorType].onMove}
           onEnd={this.connectorsMap[connectorType].onEnd}
+          onPress={(event) => {
+            if(connectorType == 'c'){
+              this.onPress(event)
+            }
+          }}
         />
       );
     });
@@ -683,6 +697,8 @@ export class DragResizeBlock extends Component {
       children,
       isDisabled,
       zIndex,
+      isResizable,
+      isDraggable
     } = this.props;
 
     const {
@@ -706,12 +722,16 @@ export class DragResizeBlock extends Component {
         }}
       >
         <TouchableWithoutFeedback
-          onPress={this.onPress}
+          onPress={() => {
+            this.onPress();
+          }}
         >
           <View
             style={{
               width: '100%',
               height: '100%',
+              borderColor: '#fff',
+              borderWidth: isResizable ? 1 : 0
             }}
           >
             {children}

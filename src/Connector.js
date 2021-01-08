@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   PanResponder,
   View,
+  TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -36,6 +37,8 @@ export class Connector extends Component {
       onMoveShouldSetPanResponderCapture: (event, gestureState) => true,
 
       onPanResponderGrant: (event, gestureState) => {
+
+
         // The gesture has started. Show visual feedback so the user knows
         // what is happening!
         // gestureState.d{x,y} will be set to zero now
@@ -54,6 +57,7 @@ export class Connector extends Component {
         ]);
       },
       onPanResponderMove: (event, gestureState) => {
+
         const {
           onMove
         } = this.props;
@@ -76,6 +80,11 @@ export class Connector extends Component {
           onEnd
         } = this.props;
 
+        // If don't move, consider that as a onPress event
+        if(gestureState.moveX == 0 && gestureState.moveY == 0){
+          this.props.onPress?.(event);
+        }
+
         onEnd([
           gestureState.moveX,
           gestureState.moveY,
@@ -90,7 +99,16 @@ export class Connector extends Component {
         // responder. Returns true by default. Is currently only supported on android.
         return true;
       },
+  
     });
+  }
+
+  getVerticalHitSlot() {
+    return this.props.h > 100 ? 30 : 10;
+  }
+
+  getHorizontalHitSlot() {
+    return this.props.w > 100 ? 30 : 10;
   }
 
   render() {
@@ -98,10 +116,17 @@ export class Connector extends Component {
       x,
       y,
       size,
+      type,
     } = this.props;
 
     return (
       <View
+        hitSlop={{
+          top: this.getVerticalHitSlot(),
+          bottom: this.getVerticalHitSlot(),
+          right: this.getHorizontalHitSlot(),
+          left: this.getHorizontalHitSlot(),
+        }}
         style={{
           position: 'absolute',
           left: x,
@@ -109,11 +134,22 @@ export class Connector extends Component {
           width: size,
           height: size,
           borderWidth: 2,
+          borderRadius: 100,
           borderColor: 'black',
+          opacity: type == 'c' ? 0 : 1,
           backgroundColor: 'white'
         }}
+        // onPress={() => {
+        //   alert()
+        // }}
         {...this._panResponder.panHandlers}
-      />
+      >
+        {/* <TouchableWithoutFeedback onPress={() => {
+          alert()
+        }} style={{ flex: 1 }}>
+          <View></View>
+        </TouchableWithoutFeedback> */}
+      </View>
     );
   }
 }
