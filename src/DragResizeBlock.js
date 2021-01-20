@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Dimensions,
   View,
@@ -222,10 +222,14 @@ export class DragResizeBlock extends Component {
     });
 
     if (onResizeStart !== null) {
-      onResizeStart([
-        this.state.x,
-        this.state.y,
-      ]);
+
+      this.draggableBlockRef.measure((x, y, w, h) => {
+        onResizeStart([
+          this.state.x,
+          this.state.y,
+        ], [w, h]);
+      })
+
     }
   }
 
@@ -527,6 +531,7 @@ export class DragResizeBlock extends Component {
       }
 
       if (onResize !== null) {
+
         onResize([
           this.state.x,
           this.state.y,
@@ -553,10 +558,14 @@ export class DragResizeBlock extends Component {
     });
 
     if (onResizeEnd !== null) {
-      onResizeEnd([
-        this.state.x,
-        this.state.y,
-      ]);
+
+      this.draggableBlockRef.measure((x, y, w, h) => {
+        onResizeEnd([
+          this.state.x,
+          this.state.y,
+        ], [w, h]);
+      })
+
     }
   }
 
@@ -666,9 +675,9 @@ export class DragResizeBlock extends Component {
 
     return connectors.map((connectorType) => {
 
-      if((connectorType == "c" && !isDraggable) || 
-         (connectorType != "c" && !isResizable)) 
-          return;
+      if ((connectorType == "c" && !isDraggable) ||
+        (connectorType != "c" && !isResizable))
+        return;
 
       return (
         <Connector
@@ -683,7 +692,7 @@ export class DragResizeBlock extends Component {
           onMove={this.connectorsMap[connectorType].onMove}
           onEnd={this.connectorsMap[connectorType].onEnd}
           onPress={(event) => {
-            if(connectorType == 'c'){
+            if (connectorType == 'c') {
               this.onPress(event)
             }
           }}
@@ -711,6 +720,9 @@ export class DragResizeBlock extends Component {
 
     return (
       <View
+        ref={ref => {
+          this.draggableBlockRef = ref;
+        }}
         style={{
           position: 'absolute',
           left: x,
