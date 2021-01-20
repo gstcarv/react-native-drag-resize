@@ -75,9 +75,9 @@ You can watch more examples in `example` directory
 | onDragStart | - | `function` | Handle drag start event. Input argument `[x, y]`. |
 | onDrag | - | `function` | Handle drag event. Input argument `[x, y]`. |
 | onDragEnd | - | `function` | Handle drag end event. Input argument `[x, y]`. |
-| onResizeStart | - | `function` | Handle resize start event. Input argument `[x, y]`. |
+| onResizeStart | - | `function` | Handle resize start event. Input argument `[x, y][w, h]`. |
 | onResize | - | `function` | Handle resize event. Input argument `[x, y]`. |
-| onResizeEnd | - | `function` | Handle resize end event. Input argument `[x, y]`. |
+| onResizeEnd | - | `function` | Handle resize end event. Input argument `[x, y],[w, h]`. |
 
 #### Basic props of `DragResizeContainer`
 
