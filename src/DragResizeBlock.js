@@ -254,14 +254,14 @@ export class DragResizeBlock extends Component {
       const newH = this.state.y + this.state.h - newY;
 
       if (newW >= minW && axis != AXIS_Y) {
-        if (limitation.x <= newX) {
+        if (limitation.x <= newX + 10) {
           this.state.w = newW;
           this.state.x = newX;
         }
       }
 
       if (newH >= minH && axis != AXIS_X) {
-        if (limitation.y <= newY) {
+        if (limitation.y <= newY + 10) {
           this.state.h = newH;
           this.state.y = newY;
         }
@@ -296,7 +296,7 @@ export class DragResizeBlock extends Component {
       const newH = this.state.y + this.state.h - newY;
 
       if (newH >= minH && axis != AXIS_X) {
-        if (limitation.y <= newY) {
+        if (limitation.y <= newY + 10) {
           this.state.h = newH;
           this.state.y = newY;
         }
@@ -339,7 +339,7 @@ export class DragResizeBlock extends Component {
       }
 
       if (newH >= minH && axis != AXIS_X) {
-        if (limitation.y <= newY) {
+        if (limitation.y <= newY + 10) {
           this.state.h = newH;
           this.state.y = newY;
         }
@@ -483,7 +483,7 @@ export class DragResizeBlock extends Component {
       const newH = this.state.h + coord[1];
 
       if (newW >= minW && axis != AXIS_Y) {
-        if (limitation.x <= newX) {
+        if (limitation.x <= newX + 10) {
           this.state.w = newW;
           this.state.x = newX;
         }
@@ -524,7 +524,7 @@ export class DragResizeBlock extends Component {
       const newW = this.state.x + this.state.w - newX;
 
       if (newW >= minW && axis != AXIS_Y) {
-        if (limitation.x <= newX) {
+        if (limitation.x <= newX + 10) {
           this.state.w = newW;
           this.state.x = newX;
         }
@@ -613,13 +613,13 @@ export class DragResizeBlock extends Component {
       const newY = this.state.y + coord[1];
 
       if (axis != AXIS_Y) {
-        if (limitation.x <= newX && limitation.w >= newX + this.state.w) {
+        if (limitation.x <= newX + 10 + 10 && limitation.w >= newX - 10 + this.state.w) {
           this.state.x = newX;
         }
       }
 
       if (axis != AXIS_X) {
-        if (limitation.y <= newY && limitation.h >= newY + this.state.h) {
+        if (limitation.y <= newY + 10 + 10 && limitation.h >= newY - 10 + this.state.h) {
           this.state.y = newY;
         }
       }
