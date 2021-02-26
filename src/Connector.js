@@ -104,11 +104,11 @@ export class Connector extends Component {
   }
 
   getVerticalHitSlot() {
-    return this.props.h > 100 ? 30 : 10;
+    return this.props.h > 100 ? 15 : 5;
   }
 
   getHorizontalHitSlot() {
-    return this.props.w > 100 ? 30 : 10;
+    return this.props.w > 100 ? 15 : 5;
   }
 
   render() {
@@ -129,15 +129,16 @@ export class Connector extends Component {
         }}
         style={{
           position: 'absolute',
-          left: x,
-          top: y,
-          width: size,
-          height: size,
+          left: type === 'c' ? 6 : x ,
+          top: type === 'c' ? 6 : y ,
+          width: type === 'c' ? '100%' : size,
+          height: type === 'c' ? '100%' : size,
           borderWidth: 1,
-          borderRadius: 100,
+          borderRadius: type === 'c' ? 0 : 100,
           borderColor: 'black',
           opacity: type == 'c' ? 0 : 1,
-          backgroundColor: 'white'
+          backgroundColor: 'white',
+          zIndex: type === 'c' ? 0 : 10,
         }}
         {...this._panResponder.panHandlers}
       >
