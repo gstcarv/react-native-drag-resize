@@ -133,22 +133,14 @@ export class Connector extends Component {
           top: y,
           width: size,
           height: size,
-          borderWidth: 2,
+          borderWidth: 1,
           borderRadius: 100,
           borderColor: 'black',
           opacity: type == 'c' ? 0 : 1,
           backgroundColor: 'white'
         }}
-        // onPress={() => {
-        //   alert()
-        // }}
         {...this._panResponder.panHandlers}
       >
-        {/* <TouchableWithoutFeedback onPress={() => {
-          alert()
-        }} style={{ flex: 1 }}>
-          <View></View>
-        </TouchableWithoutFeedback> */}
       </View>
     );
   }
