@@ -767,7 +767,7 @@ export class DragResizeBlock extends Component {
               width: '100%',
               height: '100%',
               borderColor: '#fff',
-              borderWidth: isResizable ? 1 : 0
+              borderWidth: isResizable && !isDisabled ? 1 : 0
             }}
           >
             {children}
